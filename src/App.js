@@ -9,7 +9,7 @@ class App extends Component {
       this.state = {
         pictures: [],
         indexValue: 0,
-        textInput:'Miami'
+        textInput:'San diego'
       };
     }
 
@@ -48,8 +48,13 @@ class App extends Component {
 
   preHandler = () => {
     var currentIndex = this.state.indexValue;
-    if(this.state.indexValue === 0){
-      this.setState({indexValue:99});
+    if(this.state.indexValue < 0){
+      this.setState({indexValue: 99});
+      return;
+    }
+    if(this.state.indexValue > 99){
+      this.setState({indexValue: 0});
+      return;
     }
     else{
       currentIndex= currentIndex-1;
@@ -59,8 +64,9 @@ class App extends Component {
 
   nextHandler = () => {
     var currentIndex = this.state.indexValue;
-    if(this.state.indexValue === 99){
-      this.setState({indexValue:0});
+    if(this.state.indexValue > 99){
+      this.setState({indexValue: 0});
+      return;
     }
     else{
       currentIndex= currentIndex+1;
@@ -82,6 +88,12 @@ class App extends Component {
         ></input><button onClick={this.loadImage}>Search</button>
         </p>
         <div>
+           <button onClick={this.preHandler}>Prev</button>&nbsp;
+           <button onClick={this.nextHandler}>Next</button>
+        </div>
+        <br/>
+        
+        <div>
           100 pictures of {this.state.textInput}
         </div>
         <p class="content-box">
@@ -94,10 +106,7 @@ class App extends Component {
         </p>
 
         </p>
-        <div>
-           <button onClick={this.preHandler}>Prev</button>&nbsp;
-           <button onClick={this.nextHandler}>Next</button>
-        </div>
+
       </div>
     );
   }
